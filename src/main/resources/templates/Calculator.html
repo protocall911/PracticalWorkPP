@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--    <meta charset="UTF-8">-->
+    <title>Calculator</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        mark {
+            background-color:#FF0000; font-weight:bold;
+        }
+        .exp-input {
+            display:inline;
+        }
+
+    </style>
+</head>
+<body>
+<div style="text-align: center;" >
+
+    <br>
+    <h2 style="color:red">Calculator</h2>
+    <br>
+
+    <form class="form-horizontal"  action="/calculator">
+
+        <div class="exp-input">
+            <input type="number" name="value1" placeholder="Enter first number...">
+        </div>
+        <div class="exp-input">
+            <select name="operation">
+                <option value="+" name="operator">+</option>
+                <option value="-" name="operator">-</option>
+                <option value="*" name="operator">*</option>
+                <option value="/" name="operator">/</option>
+            </select>
+        </div>
+        <div class="exp-input">
+            <input type="number" name="value2" placeholder="Enter second number...">
+        </div>
+        <div class="exp-input">
+            <input class="btn btn-light" type="submit" value="GET" formaction="/calculator" formmethod="get">
+            <input class="btn btn-light" type="submit" value="POST" formaction="/calculator" formmethod="post">
+        </div>
+
+        <br><br>
+        <label>Result:</label>
+
+        <p th:text="${result}"></p>
+
+    </form>
+</div>
+</body>
+</html>
