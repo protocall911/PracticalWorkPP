@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Добавление автора</title>
+  <style>
+    th,td{
+      border: solid black;
+    }
+  </style>
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<body>
+<h1>Добавить автора</h1>
+
+<form method="post">
+  <label>Фамилия</label>
+  <input class="form-control" type="text" name="lastname">
+  <label>Имя</label>
+  <input class="form-control" type="text" name="firstname">
+  <label>Отчество</label>
+  <input class="form-control" type="text" name="middlename">
+  <label>Дата рождения</label>
+  <input class="form-control" type="date" name="birthday">
+  <label>Общее количество произведений</label>
+  <input class="form-control" type="number" name="totalworks">
+
+  <input class="btn btn-success" type="submit" value="Добавить автора">
+</form>
+
+<a class="btn btn-danger" href="/author/">Назад</a>
+
+</body>
+</html>
