@@ -1,14 +1,17 @@
 package com.example.PracticalWorkPP.controllers;
 
+import com.example.PracticalWorkPP.models.Author;
 import com.example.PracticalWorkPP.models.Book;
 import com.example.PracticalWorkPP.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.sql.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("/book")
@@ -26,19 +29,64 @@ public class BookController {
     }
 
     @GetMapping("/add")
-    public String addView() { return "book/add-book"; }
+    public String addView(@ModelAttribute("book") Book book) {
+        return "book/add-book";
+    }
 
     @PostMapping("/add")
-    public String addBook(
-            @RequestParam(name = "title") String title,
-            @RequestParam(name = "genre") String genre,
-            @RequestParam(name = "publishinghouse") String publishinghouse,
-            @RequestParam(name = "placeofpublication") String placeofpublication,
-            @RequestParam(name = "author") String author
-    ){
-        Book new_book = new Book(title, genre, publishinghouse, placeofpublication, author);
-        bookRepository.save(new_book);
+    public String addBook(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult) {
 
+        if (bindingResult.hasErrors()) {
+            return "book/add-book";
+        }
+        bookRepository.save(book);
         return "redirect:/book/";
+    }
+    @GetMapping("/filter")
+    public String filter(@RequestParam(name = "title") String title,
+                         Model model) {
+        List<Book> bookList = bookRepository.findByTitle(title);
+        model.addAttribute("book_list", bookList);
+
+        return "book/index";
+    }
+    @GetMapping("/detail/{id}")
+    public String detailBook(
+            @PathVariable Long id,
+            Model model
+    ) {
+        Book book = bookRepository.findById(id).orElseThrow();
+        model.addAttribute("one_book", book);
+
+        return "book/book-info";
+    }
+    @GetMapping("/detail/{id}/del")
+    public String deleteBook(@PathVariable Long id,
+                             Model model) {
+        Book book = bookRepository.findById(id).orElseThrow();
+        bookRepository.delete(book);
+//        starRepository.deleteById(id);
+        return "redirect:/book/";
+    }
+    @GetMapping("/detail/{id}/upd")
+    public String updateView(
+            @PathVariable Long id,
+            Model model
+    ) {
+        Book res = bookRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Неверный id: "+id));
+        model.addAttribute("book", res);
+        return "book/update-book";
+    }
+    @PostMapping("/detail/{id}/upd")
+    public String updateView(
+            @ModelAttribute("book") @Valid Book book, BindingResult bindingResult,
+            @PathVariable Long id) {
+
+        book.setUID(id);
+        if (bindingResult.hasErrors()) {
+            return "book/update-book";
+        }
+        bookRepository.save(book);
+        return "redirect:/book/detail/" + book.getUID();
     }
 }

@@ -3,9 +3,8 @@ package com.example.PracticalWorkPP.models;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.sql.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "author")
@@ -15,19 +14,32 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long UID;
 
+    @NotEmpty(message = "Заполните поле")
+    @Size(min = 1, max = 50, message = "Количество символов должно быть в\n" +
+            "диапозоне от 1 до 50")
     @Column(name = "firstname")
     private String firstname;
 
+    @NotEmpty(message = "Заполните поле")
+    @Size(min = 1, max = 50, message = "Количество символов должно быть в\n" +
+            "диапозоне от 1 до 50")
     @Column(name = "lastname")
     private String lastname;
 
+    @NotEmpty(message = "Заполните поле")
+    @Size(min = 1, max = 50, message = "Количество символов должно быть в\n" +
+            "диапозоне от 1 до 50")
     @Column(name = "middlename")
     private String middlename;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+//    @Past
+    @NotNull(message = "Заполните поле")
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     @Column(name = "birthday")
     private Date birthday;
 
+    @NotNull(message = "Заполните поле")
+    @Min(value = 0, message = "Значение в поле не может быть меньше нуля")
     @Column(name = "totalworks")
     private Integer totalworks;
 
