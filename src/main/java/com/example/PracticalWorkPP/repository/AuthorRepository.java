@@ -1,7 +1,6 @@
 package com.example.PracticalWorkPP.repository;
 
 import com.example.PracticalWorkPP.models.Author;
-import com.example.PracticalWorkPP.models.Book;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

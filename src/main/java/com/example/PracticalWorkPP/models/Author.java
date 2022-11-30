@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.sql.Date;
+import java.util.Collection;
 
 @Entity
 @Table(name = "author")
@@ -42,6 +43,8 @@ public class Author {
     @Min(value = 0, message = "Значение в поле не может быть меньше нуля")
     @Column(name = "totalworks")
     private Integer totalworks;
+//    @OneToMany(mappedBy = "author", fetch = FetchType.EAGER)
+//    private Collection<Book> booksByAuthor;
 
     public Author(String firstname, String lastname, String middlename, Date birthday, Integer totalworks) {
         this.firstname = firstname;
@@ -94,6 +97,14 @@ public class Author {
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
+
+//    public Collection<Book> getBooksByAuthor() {
+//        return booksByAuthor;
+//    }
+//
+//    public void setBooksByAuthor(Collection<Book> booksByAuthor) {
+//        this.booksByAuthor = booksByAuthor;
+//    }
 
     public Integer getTotalworks() {
         return totalworks;
