@@ -196,7 +196,7 @@
 
     <div class="input-container ic2">
       <input th:field="*{author}" id="author" class="input" type="text" name="author" placeholder=" "/>
-      <!--            <div class="cut"></div>-->
+                  <div class="cut"></div>
       <div th:if="${#fields.hasErrors('author')}" th:errors="*{author}" style="color: red; font-size: 11px; margin-left: 20px"></div>
       <label for="author" class="placeholder">Автор</label>
     </div>

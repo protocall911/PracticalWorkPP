@@ -2,6 +2,7 @@ package com.example.PracticalWorkPP.controllers;
 
 import com.example.PracticalWorkPP.models.Author;
 import com.example.PracticalWorkPP.models.Book;
+import com.example.PracticalWorkPP.repository.AuthorRepository;
 import com.example.PracticalWorkPP.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,8 @@ public class BookController {
 
     @Autowired
     BookRepository bookRepository;
+    @Autowired
+    AuthorRepository authorRepository;
 
     @GetMapping("/")
     public String index(Model model) {

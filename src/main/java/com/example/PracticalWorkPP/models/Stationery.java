@@ -1,6 +1,7 @@
 package com.example.PracticalWorkPP.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "stationery")
@@ -15,6 +16,10 @@ public class Stationery {
 
     @ManyToOne(optional = true, cascade = CascadeType.ALL)
     private Category category;
+
+    public Stationery() {
+
+    }
 
     public Long getId() {
         return id;
@@ -43,9 +48,5 @@ public class Stationery {
     public Stationery(String name, Category category) {
         this.name = name;
         this.category = category;
-    }
-
-    public Stationery() {
-
     }
 }

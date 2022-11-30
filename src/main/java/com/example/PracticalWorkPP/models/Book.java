@@ -40,8 +40,6 @@ public class Book {
             "диапозоне от 1 до 100")
     @Column(name = "author")
     private String author;
-//    @ManyToOne(optional = true, cascade = CascadeType.ALL)
-//    private Author author;
 
     public Book(String title, String genre, String publishinghouse, String placeofpublication, String author) {
         this.title = title;

@@ -1,6 +1,5 @@
 package com.example.PracticalWorkPP.controllers;
 
-import com.example.PracticalWorkPP.models.Author;
 import com.example.PracticalWorkPP.models.Category;
 import com.example.PracticalWorkPP.models.Stationery;
 import com.example.PracticalWorkPP.repository.CategoryRepository;
