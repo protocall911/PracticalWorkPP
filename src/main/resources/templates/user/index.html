@@ -1,0 +1,198 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Добавление нового пользователя</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+        .add-container {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            height: 20vh;
+        }
+        .container {
+            overflow-scrolling: auto;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        h2 {
+            font-family: 'Montserrat';
+            font-size: 32px;
+            margin: 80px 0 20px 0;
+            text-align: center;
+        }
+        li {
+            border-radius: 3px;
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .table-header {
+            background-color: #95A5A6;
+            font-size: 14px;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+        .table-row {
+            background-color: #ffffff;
+            box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
+        }
+        .col-1 {
+            flex-basis: 50%;
+        }
+        .col-2 {
+            flex-basis: 50%;
+        }
+        .input-name {
+            width: 500px;
+            height: 30px;
+        }
+        .select-name {
+            height: 35px;
+        }
+        .footer {
+            position: fixed;
+            font-size: 12px;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #f5f5f5;
+            text-align: center;
+        }
+        .footer-a :hover {
+            border-bottom: 1px transparent;
+        } {
+            text-decoration: none;
+            color: inherit;
+            border-bottom: 1px solid;
+        }
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #f5f5f5;
+        }
+        .nav-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .nav-a {
+            font-size: 14px;
+            color: black;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-block;
+            width: 100px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        .btn-body {
+            height: 15vh;
+            margin: 0 auto;
+            display: grid;
+            place-items: center;
+            /*padding: calc(1rem * 2);*/
+            max-width: 300px;
+        }
+        .btn-container {
+            display: flex;
+            width: 80%;
+            box-shadow: rgba(0, 0, 0, 0.1) 4px 4px;
+        }
+        .btn-container .custom-btn {
+            text-decoration: none;
+            flex-grow: 1;
+            cursor: pointer;
+            position: relative;
+            padding:
+                    calc(1rem / 1.125)
+                    1rem
+                    1rem;
+            border: 0.125rem solid black;
+            color: black;
+            background-color: white;
+            font-size: 1.2rem;
+            font-family: 'Montserrat';
+            text-transform: lowercase;
+            text-shadow: rgba(0, 0, 0, 0.1) 2px 2px;
+            transition: flex-grow 250ms cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+        .btn-container .custom-btn + .custom-btn {
+            border-left: 0.125rem solid black;
+            margin-left: calc(0.125rem * -1);
+        }
+        .btn-container .custom-btn:hover,
+        .btn-container .custom-btn:focus {
+            flex-grow: 2;
+            color: white;
+            outline: none;
+            text-shadow: none;
+            background-color: black;
+        }
+        .btn-container .custom-btn:focus {
+            outline: 0.125rem dashed white;
+            outline-offset: calc(0.125rem * -3);
+        }
+        .btn-container:hover .custom-btn:focus:not(:hover) {
+            flex-grow: 1;
+            color: black;
+            background-color: white;
+            outline-color: dodgerblue;
+        }
+        .btn-container .custom-btn:active {
+            transform: translateY(0.125rem);
+        }
+    </style>
+</head>
+<body>
+<header th:insert="/book/fragments/header :: headerUsers"></header>
+<div class="container">
+    <h2>Пользователи</h2>
+</div>
+<div class="add-container">
+    <form th:action="${'/user/add/'}" method="post">
+        <input type="text" name="username" placeholder="Введите логин">
+        <select  name="nameRole">
+            <div th:each="element : ${role}">
+                <option th:text="${element.name}"></option>
+            </div>
+        </select>
+        <br>
+        <div class="btn-body">
+            <div class="btn-container">
+                <input class="custom-btn" type="submit" value="Добавить">
+            </div>
+        </div>
+    </form>
+</div>
+<div class="container">
+    <ul class="responsive-table">
+        <li class="table-header">
+            <div class="col col-1">Логин</div>
+            <div class="col col-2">Роль</div>
+        </li>
+        <li class="table-row" th:each="el : ${users}">
+            <div class="col col-1" th:text="${el.username}"></div>
+            <div class="col col-2" th:text="${el.role.name}"></div>
+        </li>
+    </ul>
+</div>
+</body>
+<footer th:insert="/book/fragments/footer :: footerMain" class="footer"></footer>
+</html>
