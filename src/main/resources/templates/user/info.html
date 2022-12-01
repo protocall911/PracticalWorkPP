@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Пользователи</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+    body {
+      font-family: 'Montserrat', sans-serif;
+    }
+    .nav-menu {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 60px;
+      background-color: #f5f5f5;
+    }
+    .nav-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .nav-a {
+      font-size: 14px;
+      color: black;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      text-decoration: none;
+      font-weight: 500;
+      display: inline-block;
+      width: 100px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+    .container {
+      overflow-scrolling: auto;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+    h2 {
+      font-size: 32px;
+      margin: 80px 0 40px 0;
+      text-align: center;
+    }
+    p {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn-body {
+      height: 20vh;
+      margin: 0 auto;
+      display: grid;
+      place-items: center;
+      /*padding: calc(1rem * 2);*/
+      max-width: 500px;
+    }
+    .btn-container {
+      display: flex;
+      width: 80%;
+      box-shadow: rgba(0, 0, 0, 0.1) 4px 4px;
+    }
+    .btn-container .custom-btn {
+      text-decoration: none;
+      flex-grow: 1;
+      cursor: pointer;
+      position: relative;
+      padding:
+              calc(1rem / 1.125)
+              1rem
+              1rem;
+      border: 0.125rem solid black;
+      color: black;
+      background-color: white;
+      font-size: 1.2rem;
+      font-family: 'Montserrat';
+      text-transform: lowercase;
+      text-shadow: rgba(0, 0, 0, 0.1) 2px 2px;
+      transition: flex-grow 250ms cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+    .btn-container .custom-btn + .custom-btn {
+      border-left: 0.125rem solid black;
+      margin-left: calc(0.125rem * -1);
+    }
+    .btn-container .custom-btn:hover,
+    .btn-container .custom-btn:focus {
+      flex-grow: 2;
+      color: white;
+      outline: none;
+      text-shadow: none;
+      background-color: black;
+    }
+    .btn-container .custom-btn:focus {
+      outline: 0.125rem dashed white;
+      outline-offset: calc(0.125rem * -3);
+    }
+    .btn-container:hover .custom-btn:focus:not(:hover) {
+      flex-grow: 1;
+      color: black;
+      background-color: white;
+      outline-color: dodgerblue;
+    }
+    .btn-container .custom-btn:active {
+      transform: translateY(0.125rem);
+    }
+    .footer {
+      position: fixed;
+      font-size: 12px;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background-color: #f5f5f5;
+      text-align: center;
+    }
+    .footer-a :hover {
+      border-bottom: 1px transparent;
+    } {
+      text-decoration: none;
+      color: inherit;
+      border-bottom: 1px solid;
+    }
+  </style>
+</head>
+<body>
+<header th:insert="book/fragments/header :: headerUsers"/>
+
+<div class="container">
+  <h2 th:text="'Пользователь: ' + ${user_object.username}"></h2>
+
+  <div class="container">
+    <p th:text="'Роли: ' + ${user_object.roles}"></p>
+    <p th:text="${user_object.active} == True ? 'Пользователь: Активный' : 'Пользователь: Неактивный'"></p>
+
+    <div class="btn-body">
+      <div class="btn-container">
+        <a type="submit" class="custom-btn" th:href="'/admin/' + ${user_object.id} + '/update'">Редактировать</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+<footer th:insert="/book/fragments/footer :: footerMain" class="footer"></footer>
+</html>
