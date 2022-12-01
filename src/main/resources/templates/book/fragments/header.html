@@ -4,7 +4,11 @@
             <a class="nav-a" href="/book/add">Добавить книгу</a>
             <a class="nav-a" href="/author/">Авторы</a>
             <a class="nav-a" href="/stationery/">Канцтовары</a>
-            <a class="nav-a" href="/user/">Пользователи</a>
+            <a class="nav-a" href="/admin/">Пользователи</a>
+
+            <form class="nav-a" th:action="@{/logout}" method="post">
+                <input type="submit" class="btn btn-danger" value="Выход"/>
+            </form>
             <!--        <a class="nav-a" href="/book/add">Добавить книгу</a>-->
         </div>
     </nav>

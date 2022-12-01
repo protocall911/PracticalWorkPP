@@ -5,6 +5,7 @@ import com.example.PracticalWorkPP.models.Book;
 import com.example.PracticalWorkPP.repository.AuthorRepository;
 import com.example.PracticalWorkPP.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,7 +17,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/book")
 public class BookController {
-
     @Autowired
     BookRepository bookRepository;
     @Autowired
@@ -30,11 +30,13 @@ public class BookController {
         return "book/index";
     }
 
+    @PreAuthorize("hasAnyAuthority('SELLER','ADMIN')")
     @GetMapping("/add")
     public String addView(@ModelAttribute("book") Book book) {
         return "book/add-book";
     }
 
+    @PreAuthorize("hasAnyAuthority('SELLER','ADMIN')")
     @PostMapping("/add")
     public String addBook(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult) {
 
@@ -52,6 +54,7 @@ public class BookController {
 
         return "book/index";
     }
+    @PreAuthorize("hasAnyAuthority('SELLER','ADMIN')")
     @GetMapping("/detail/{id}")
     public String detailBook(
             @PathVariable Long id,
@@ -62,6 +65,7 @@ public class BookController {
 
         return "book/book-info";
     }
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping("/detail/{id}/del")
     public String deleteBook(@PathVariable Long id,
                              Model model) {
@@ -70,6 +74,7 @@ public class BookController {
 //        starRepository.deleteById(id);
         return "redirect:/book/";
     }
+    @PreAuthorize("hasAnyAuthority('SELLER','ADMIN')")
     @GetMapping("/detail/{id}/upd")
     public String updateView(
             @PathVariable Long id,
@@ -79,6 +84,7 @@ public class BookController {
         model.addAttribute("book", res);
         return "book/update-book";
     }
+    @PreAuthorize("hasAnyAuthority('SELLER','ADMIN')")
     @PostMapping("/detail/{id}/upd")
     public String updateView(
             @ModelAttribute("book") @Valid Book book, BindingResult bindingResult,
